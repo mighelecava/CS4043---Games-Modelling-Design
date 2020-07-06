@@ -1,0 +1,578 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local composer = require ("composer")
+local scene = composer.newScene()
+
+local backgroundMusic
+
+local function gotoGame()
+  audio.stop( 1 )
+  composer.gotoScene("Level1.Level1Cutscene", { time=300, effect="fade" } )
+end
+
+local function gotoSelectLevel()
+  composer.gotoScene("Menus.SelectLevel", { time = 300, effect="fade"})
+end
+
+local function closeGame()
+    native.requestExit()
+end
+
+function scene:create(event)
+
+  local screenGroup = self.view
+
+  local background = display.newImageRect("Menus/FlagPoles.jpg", 1280, 720)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  screenGroup:insert(background)
+
+  local ULMAP = display.newImageRect("Menus/ULMAP.png", 700, 500)
+  ULMAP.x = display.contentCenterX - 270
+  ULMAP.y = display.contentCenterY + 180
+  screenGroup:insert(ULMAP)
+
+  local playButton = display.newImageRect("Menus/playButton.png", 500, 120)
+  playButton.x = display.contentCenterX + 270
+  playButton.y = display.contentCenterY - 10
+  screenGroup:insert(playButton)
+  playButton:addEventListener("tap", gotoGame )
+
+  local selectLevelButton = display.newImageRect("Menus/selectLevelButton.png", 500, 120)
+  selectLevelButton.x = display.contentCenterX + 270
+  selectLevelButton.y = display.contentCenterY + 120
+  screenGroup:insert(selectLevelButton)
+  selectLevelButton:addEventListener("tap", gotoSelectLevel )
+
+  local quitButton = display.newImageRect("Menus/quitButton.png", 500, 120)
+  quitButton.x = display.contentCenterX + 270
+  quitButton.y = display.contentCenterY + 250
+  screenGroup:insert(quitButton)
+  quitButton:addEventListener("tap", closeGame )
+
+  local Lepresean = display.newImageRect("Menus/Lepresean.png", 200, 250)
+  Lepresean.x = display.contentCenterX - 330
+  Lepresean.y = display.contentCenterY - 110
+  screenGroup:insert(Lepresean)
+
+  local Lepresean2 = display.newImageRect("Menus/newLabel.png", 500, 250)
+  Lepresean2.x = display.contentCenterX + 280
+  Lepresean2.y = display.contentCenterY - 220
+  screenGroup:insert(Lepresean2)
+
+  backgroundMusic = audio.loadStream("Audio/MenuMusic.mp3")
+
+end
+
+-- show()
+function scene:show( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is still off screen (but is about to come on screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs when the scene is entirely on screen
+    audio.play(backgroundMusic, {channel=1, loops = -1})
+	end
+end
+
+
+-- hide()
+function scene:hide( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is on screen (but is about to go off screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs immediately after the scene goes entirely off screen
+      composer.removeScene("Menus\Menu")
+	end
+end
+
+
+-- destroy()
+function scene:destroy( event )
+
+	local sceneGroup = self.view
+	-- Code here runs prior to the removal of scene's view
+  if(gotoGame) then
+  audio.remove(backgroundMusic)
+  end
+end
+
+
+-- -----------------------------------------------------------------------------------
+-- Scene event function listeners
+-- -----------------------------------------------------------------------------------
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
+-- -----------------------------------------------------------------------------------
+
+return scene
+
+local composer = require ("composer")
+local scene = composer.newScene()
+
+local backgroundMusic
+
+local function gotoGame()
+  audio.stop( 1 )
+  composer.gotoScene("Level1.Level1Cutscene", { time=300, effect="fade" } )
+end
+
+local function gotoSelectLevel()
+  composer.gotoScene("Menus.SelectLevel", { time = 300, effect="fade"})
+end
+
+local function closeGame()
+    native.requestExit()
+end
+
+function scene:create(event)
+
+  local screenGroup = self.view
+
+  local background = display.newImageRect("Menus/FlagPoles.jpg", 1280, 720)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  screenGroup:insert(background)
+
+  local ULMAP = display.newImageRect("Menus/ULMAP.png", 700, 500)
+  ULMAP.x = display.contentCenterX - 270
+  ULMAP.y = display.contentCenterY + 180
+  screenGroup:insert(ULMAP)
+
+  local playButton = display.newImageRect("Menus/playButton.png", 500, 120)
+  playButton.x = display.contentCenterX + 270
+  playButton.y = display.contentCenterY - 10
+  screenGroup:insert(playButton)
+  playButton:addEventListener("tap", gotoGame )
+
+  local selectLevelButton = display.newImageRect("Menus/selectLevelButton.png", 500, 120)
+  selectLevelButton.x = display.contentCenterX + 270
+  selectLevelButton.y = display.contentCenterY + 120
+  screenGroup:insert(selectLevelButton)
+  selectLevelButton:addEventListener("tap", gotoSelectLevel )
+
+  local quitButton = display.newImageRect("Menus/quitButton.png", 500, 120)
+  quitButton.x = display.contentCenterX + 270
+  quitButton.y = display.contentCenterY + 250
+  screenGroup:insert(quitButton)
+  quitButton:addEventListener("tap", closeGame )
+
+  local Lepresean = display.newImageRect("Menus/Lepresean.png", 200, 250)
+  Lepresean.x = display.contentCenterX - 330
+  Lepresean.y = display.contentCenterY - 110
+  screenGroup:insert(Lepresean)
+
+  local Lepresean2 = display.newImageRect("Menus/newLabel.png", 500, 250)
+  Lepresean2.x = display.contentCenterX + 280
+  Lepresean2.y = display.contentCenterY - 220
+  screenGroup:insert(Lepresean2)
+
+  backgroundMusic = audio.loadStream("Audio/MenuMusic.mp3")
+
+end
+
+-- show()
+function scene:show( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is still off screen (but is about to come on screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs when the scene is entirely on screen
+    audio.play(backgroundMusic, {channel=1, loops = -1})
+	end
+end
+
+
+-- hide()
+function scene:hide( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is on screen (but is about to go off screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs immediately after the scene goes entirely off screen
+      composer.removeScene("Menus\Menu")
+	end
+end
+
+
+-- destroy()
+function scene:destroy( event )
+
+	local sceneGroup = self.view
+	-- Code here runs prior to the removal of scene's view
+  if(gotoGame) then
+  audio.remove(backgroundMusic)
+  end
+end
+
+
+-- -----------------------------------------------------------------------------------
+-- Scene event function listeners
+-- -----------------------------------------------------------------------------------
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
+-- -----------------------------------------------------------------------------------
+
+return scene
+
+
+
+
+local composer = require( "composer" )
+local scene = composer.newScene()
+
+local function resume()
+  composer.hideOverlay("fade", 400)
+end
+
+local function closeGame()
+    native.requestExit()
+end
+
+function scene:create(event)
+  local screenGroup = self.view
+
+  local background = display.newImageRect("Menus/FlagPoles.jpg", 1280, 720)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  screenGroup:insert(background)
+
+  local rainbowMan = display.newImageRect("Menus/RainbowMan.png", 1200,650)
+  rainbowMan.x = display.contentCenterX - 450
+  rainbowMan.y = display.contentCenterY - 100
+  screenGroup:insert(rainbowMan)
+
+  local Paused = display.newImageRect("Menus/Paused.png", 800,500)
+  Paused.x = display.contentCenterX + 220
+  Paused.y = display.contentCenterY - 100
+  screenGroup:insert(Paused)
+
+  local quitButton = display.newImageRect("Menus/quitButton.png", 500, 120)
+  quitButton.x = display.contentCenterX - 300
+  quitButton.y = display.contentCenterY + 250
+  screenGroup:insert(quitButton)
+  quitButton:addEventListener("tap", closeGame )
+
+  local ContinueButton = display.newImageRect("Menus/ContinueButton.png", 500, 120)
+  ContinueButton.x = display.contentCenterX + 300
+  ContinueButton.y = display.contentCenterY + 250
+  screenGroup:insert(ContinueButton)
+  ContinueButton:addEventListener("tap", resume)
+
+end
+
+-- show()
+function scene:show( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is still off screen (but is about to come on screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs when the scene is entirely on screen
+	end
+end
+
+function scene:hide( event )
+    local sceneGroup = self.view
+    local phase = event.phase
+    local parent = event.parent
+
+    if ( phase == "will" ) then
+      parent:resumeGame()
+    end
+end
+
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+return scene
+
+
+
+
+
+
+local composer = require ("composer")
+local scene = composer.newScene()
+local backgroundMusic
+
+local function gotoLevel1()
+  composer.gotoScene("Level1.Level1Cutscene", { time=300, effect="fade" } )
+end
+
+local function gotoLevel2()
+  composer.gotoScene("Level2.Level2Cutscene", { time=300, effect="fade" } )
+end
+
+local function gotoLevel3()
+  composer.gotoScene("Level3.Level3Cutscene", { time=300, effect="fade" } )
+end
+
+local function gotoLevel4()
+  composer.gotoScene("Level4.Level4Cutscene", { time=300, effect="fade" } )
+end
+
+local function gotoMenu()
+  composer.gotoScene("Menus.Menu", { time=300, effect="fade" } )
+end
+
+local function closeGame()
+    native.requestExit()
+end
+
+function scene:create(event)
+
+  local screenGroup = self.view
+
+  local background = display.newImageRect("Menus/Background.png", 1280, 720)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  screenGroup:insert(background)
+
+  local quitButton = display.newImageRect("Menus/quitButton.png", 500, 120)
+  quitButton.x = display.contentCenterX + 300
+  quitButton.y = display.contentCenterY + 200
+  screenGroup:insert(quitButton)
+  quitButton:addEventListener("tap", closeGame )
+
+  local Level1Button = display.newImageRect("Menus/Level1Button.png", 500, 120)
+  Level1Button.x = display.contentCenterX - 300
+  Level1Button.y = display.contentCenterY - 200
+  screenGroup:insert(Level1Button)
+  Level1Button:addEventListener("tap", gotoLevel1 )
+
+  local Level2Button = display.newImageRect("Menus/Level2Button.png", 500, 120)
+  Level2Button.x = display.contentCenterX + 300
+  Level2Button.y = display.contentCenterY - 200
+  screenGroup:insert(Level2Button)
+  Level2Button:addEventListener("tap", gotoLevel2 )
+
+  local Level3Button = display.newImageRect("Menus/Level3Button.png", 500, 120)
+  Level3Button.x = display.contentCenterX - 300
+  Level3Button.y = display.contentCenterY
+  screenGroup:insert(Level3Button)
+  Level3Button:addEventListener("tap", gotoLevel3 )
+
+  local Level4Button = display.newImageRect("Menus/Level4Button.png", 500, 120)
+  Level4Button.x = display.contentCenterX + 300
+  Level4Button.y = display.contentCenterY
+  screenGroup:insert(Level4Button)
+  Level4Button:addEventListener("tap", gotoLevel4 )
+
+  local BackButton = display.newImageRect("Menus/BackButton.png", 500, 120)
+  BackButton.x = display.contentCenterX - 300
+  BackButton.y = display.contentCenterY + 200
+  screenGroup:insert(BackButton)
+  BackButton:addEventListener("tap", gotoMenu )
+
+  backgroundMusic = audio.loadStream("Audio/MenuMusic.mp3")
+
+end
+
+-- show()
+function scene:show( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is still off screen (but is about to come on screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs when the scene is entirely on screen
+    audio.play(backgroundMusic, {channel=1, loops = -1})
+	end
+end
+
+
+-- hide()
+function scene:hide( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is on screen (but is about to go off screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs immediately after the scene goes entirely off screen
+      audio.stop( 1 )
+      composer.removeScene("Menus\SelectLevel")
+	end
+end
+
+
+-- destroy()
+function scene:destroy( event )
+
+	local sceneGroup = self.view
+	-- Code here runs prior to the removal of scene's view
+    audio.remove(backgroundMusic)
+end
+
+
+-- -----------------------------------------------------------------------------------
+-- Scene event function listeners
+-- -----------------------------------------------------------------------------------
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
+-- -----------------------------------------------------------------------------------
+
+return scene
+
+
+
+
+local composer = require ("composer")
+local scene = composer.newScene()
+
+local YouWinMusic
+
+local function gotoMenu()
+  composer.gotoScene("Menus.Menu", { time=300, effect="fade" } )
+end
+
+local function closeGame()
+    native.requestExit()
+end
+
+function scene:create(event)
+
+    local screenGroup = self.view
+    local background = display.newImageRect("Menus/winBackground.jpg", 1280, 720)
+    background.x = display.contentCenterX
+    background.y = display.contentCenterY
+    screenGroup:insert(background)
+
+    local rainbowMan = display.newImageRect("Menus/RainbowMan.png", 1100,650)
+    rainbowMan.x = display.contentCenterX - 465
+    rainbowMan.y = display.contentCenterY - 100
+    screenGroup:insert(rainbowMan)
+
+    local playAgain = display.newImageRect("Menus/playAgain.png", 500, 120)
+    playAgain.x = display.contentCenterX + 350
+    playAgain.y = display.contentCenterY + 300
+    screenGroup:insert(playAgain)
+    playAgain:addEventListener("tap", gotoMenu )
+
+    local quit = display.newImageRect("Menus/Quit.png", 500, 150)
+    quit.x = display.contentCenterX - 375
+    quit.y = display.contentCenterY + 300
+    screenGroup:insert(quit)
+    quit:addEventListener("tap", closeGame )
+
+    local YouWinCutscene = display.newImageRect("Menus/YouWinCutscene.png", 800,500)
+    YouWinCutscene.x = display.contentCenterX + 250
+    YouWinCutscene.y = display.contentCenterY - 15
+    screenGroup:insert(YouWinCutscene)
+
+    local YouWin = display.newImageRect("Menus/YouWin.png", 1000,400)
+    YouWin.x = display.contentCenterX + 220
+    YouWin.y = display.contentCenterY - 260
+    screenGroup:insert(YouWin)
+
+    local gold = display.newImageRect("Menus/gold.png", 200,300)
+    gold.x = display.contentCenterX - 190
+    gold.y = display.contentCenterY + 205
+    screenGroup:insert(gold)
+
+    YouWinMusic = audio.loadStream("Audio/youWin.wav")
+
+end
+
+-- show()
+function scene:show( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is still off screen (but is about to come on screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs when the scene is entirely on screen
+      audio.play(YouWinMusic, {channel=1, loops = -1})
+	end
+end
+
+
+-- hide()
+function scene:hide( event )
+
+	local sceneGroup = self.view
+	local phase = event.phase
+
+	if ( phase == "will" ) then
+		-- Code here runs when the scene is on screen (but is about to go off screen)
+
+	elseif ( phase == "did" ) then
+		-- Code here runs immediately after the scene goes entirely off screen
+    audio.stop(1)
+    composer.removeScene("Menus\YouWin")
+	end
+end
+
+
+-- destroy()
+function scene:destroy( event )
+
+	local sceneGroup = self.view
+	-- Code here runs prior to the removal of scene's view
+    audio.remove(YouWinMusic)
+end
+
+
+-- -----------------------------------------------------------------------------------
+-- Scene event function listeners
+-- -----------------------------------------------------------------------------------
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
+-- -----------------------------------------------------------------------------------
+
+return scene
+
+
